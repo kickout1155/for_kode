@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/linearlayout_from_where"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/reverse"
-    android:orientation="vertical">
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/from_where_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    </androidx.appcompat.widget.AppCompatTextView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/from_where_airport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        tools:text="asdasdasd">
-
-    </androidx.appcompat.widget.AppCompatTextView>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+    android:background="@android:color/holo_blue_dark">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearlayout_where"
+        android:id="@+id/linearlayout_section_from_where"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@id/reverse"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout_from_where">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/from_where_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/from_where_airport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="asdasdasd">
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearlayout_section_where"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/reverse"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_section_from_where">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/where_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textview.MaterialTextView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/where_airport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textview.MaterialTextView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -45,18 +57,120 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icn_global_city_reverse"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
-        >
+        app:layout_constraintTop_toTopOf="@id/linearlayout_section_from_where"
+        app:layout_constraintBottom_toBottomOf="@id/linearlayout_section_where">
     </androidx.appcompat.widget.AppCompatImageButton>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottom_barrier_sity_section"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="linearlayout_section_from_where,linearlayout_section_where,reverse">
+    </androidx.constraintlayout.widget.Barrier>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearlayout_section_there"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/linearlayout_section_back">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_there_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="dasd">
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/there_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="dasd">
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearlayout_section_back"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
+        app:layout_constraintStart_toEndOf="@id/linearlayout_section_there">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_back_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="asdasd123123">
+        </com.google.android.material.textview.MaterialTextView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/back_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="zxczxczxc">
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/clear_date_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
+        app:layout_constraintStart_toEndOf="@id/linearlayout_section_back"
+        android:src="@drawable/icn_booking_add">
+    </androidx.appcompat.widget.AppCompatImageButton>
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="clear_date_back,linearlayout_section_back">
+    </androidx.constraintlayout.widget.Group>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottom_barrier_date_section"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        android:background="@color/black"
+        app:constraint_referenced_ids="linearlayout_section_there,linearlayout_section_back,
+            clear_date_back">
+    </androidx.constraintlayout.widget.Barrier>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/add_adult_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icn_booking_add"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section">
+    </androidx.appcompat.widget.AppCompatImageButton>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/count_adult_tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_adult_ticket"
+        app:layout_constraintBottom_toTopOf="@id/delete_adult_ticket"
+        tools:text="0">
+    </com.google.android.material.textview.MaterialTextView>
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/delete_adult_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icn_booking_delete"
+        app:layout_constraintTop_toBottomOf="@id/count_adult_tickets">
+    </androidx.appcompat.widget.AppCompatImageButton>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="Найти рейсы">
     </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
