@@ -1,31 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark">
+    android:background="?attr/colorPrimaryVariant"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground">
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dot_image"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_more_vert"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_barrier_sity_section">
+    </androidx.appcompat.widget.AppCompatImageView>
+
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearlayout_section_from_where"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        style="@style/style_container"
         app:layout_constraintEnd_toStartOf="@id/reverse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@id/dot_image"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_main">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/from_where_city"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/main_text"
+            tools:text="Калининград">
         </com.google.android.material.textview.MaterialTextView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/from_where_airport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="asdasdasd">
+            style="@style/second_text"
+            tools:text="Все аэропорты">
         </com.google.android.material.textview.MaterialTextView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -36,27 +71,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        style="@style/style_container"
         app:layout_constraintEnd_toStartOf="@id/reverse"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dot_image"
         app:layout_constraintTop_toBottomOf="@id/linearlayout_section_from_where">
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/where_city"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/main_text"
+            tools:text="Москва">
         </com.google.android.material.textview.MaterialTextView>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/where_airport"
+            style="@style/second_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:text="Все аэропорты">
         </com.google.android.material.textview.MaterialTextView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/reverse"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:src="@drawable/icn_global_city_reverse"
+        android:background="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/linearlayout_section_from_where"
         app:layout_constraintBottom_toBottomOf="@id/linearlayout_section_where">
@@ -70,66 +111,89 @@
         app:constraint_referenced_ids="linearlayout_section_from_where,linearlayout_section_where,reverse">
     </androidx.constraintlayout.widget.Barrier>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearlayout_section_there"
+
+    <FrameLayout
+        android:id="@+id/container_there"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/linearlayout_section_back">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title_there_date"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
+        app:layout_constraintEnd_toStartOf="@id/container_back">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearlayout_section_there"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="dasd">
-        </com.google.android.material.textview.MaterialTextView>
+            android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/there_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="dasd">
-        </com.google.android.material.textview.MaterialTextView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title_there_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                style="@style/second_text"
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearlayout_section_back"
+                tools:text="dasd">
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/there_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="dasd">
+            </com.google.android.material.textview.MaterialTextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/container_back"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
-        app:layout_constraintStart_toEndOf="@id/linearlayout_section_there">
+        app:layout_constraintStart_toEndOf="@id/container_there">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title_back_date"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearlayout_section_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="asdasd123123">
-        </com.google.android.material.textview.MaterialTextView>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/back_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="zxczxczxc">
-        </com.google.android.material.textview.MaterialTextView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/clear_date_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_sity_section"
-        app:layout_constraintStart_toEndOf="@id/linearlayout_section_back"
-        android:src="@drawable/icn_booking_add">
-    </androidx.appcompat.widget.AppCompatImageButton>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title_back_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/second_text"
 
-    <androidx.constraintlayout.widget.Group
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="clear_date_back,linearlayout_section_back">
-    </androidx.constraintlayout.widget.Group>
+                tools:text="asdasd123123">
+            </com.google.android.material.textview.MaterialTextView>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/back_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="zxczxczxc">
+            </com.google.android.material.textview.MaterialTextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--    <androidx.constraintlayout.widget.Group-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:constraint_referenced_ids="clear_date_back,linearlayout_section_back">-->
+<!--    </androidx.constraintlayout.widget.Group>-->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/bottom_barrier_date_section"
@@ -137,40 +201,158 @@
         android:layout_height="0dp"
         app:barrierDirection="bottom"
         android:background="@color/black"
-        app:constraint_referenced_ids="linearlayout_section_there,linearlayout_section_back,
-            clear_date_back">
+        app:constraint_referenced_ids="container_there,container_back">
     </androidx.constraintlayout.widget.Barrier>
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/add_adult_ticket"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container_adult_ticket"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/icn_booking_add"
-        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section">
-    </androidx.appcompat.widget.AppCompatImageButton>
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/count_adult_tickets"
-        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        style="@style/style_container"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/container_kid_ticket"
+        app:layout_constraintHorizontal_chainStyle="spread">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_adult_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icn_booking_add"
+            style="@style/button_add_delete"
+            app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section">
+        </androidx.appcompat.widget.AppCompatImageButton>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_adult_tickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/main_text"
+            app:layout_constraintTop_toBottomOf="@id/add_adult_ticket"
+            app:layout_constraintBottom_toTopOf="@id/delete_adult_ticket"
+            tools:text="0">
+        </com.google.android.material.textview.MaterialTextView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_adult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            tools:text="Взрослый">
+        </com.google.android.material.textview.MaterialTextView>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/delete_adult_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_add_delete"
+            android:src="@drawable/icn_booking_delete"
+            app:layout_constraintTop_toBottomOf="@id/count_adult_tickets">
+        </androidx.appcompat.widget.AppCompatImageButton>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container_kid_ticket"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_adult_ticket"
-        app:layout_constraintBottom_toTopOf="@id/delete_adult_ticket"
-        tools:text="0">
-    </com.google.android.material.textview.MaterialTextView>
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/delete_adult_ticket"
-        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        style="@style/style_container"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section"
+        app:layout_constraintStart_toEndOf="@id/container_adult_ticket"
+        app:layout_constraintEnd_toStartOf="@id/container_baby_ticket">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_kid_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icn_booking_add"
+            style="@style/button_add_delete"
+            app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section">
+        </androidx.appcompat.widget.AppCompatImageButton>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_kid_tickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/main_text"
+            app:layout_constraintTop_toBottomOf="@id/add_adult_ticket"
+            app:layout_constraintBottom_toTopOf="@id/delete_adult_ticket"
+            tools:text="0">
+        </com.google.android.material.textview.MaterialTextView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_kid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            tools:text="2-12 лет">
+        </com.google.android.material.textview.MaterialTextView>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/delete_kid_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_add_delete"
+            android:src="@drawable/icn_booking_delete"
+            app:layout_constraintTop_toBottomOf="@id/count_adult_tickets">
+        </androidx.appcompat.widget.AppCompatImageButton>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container_baby_ticket"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/icn_booking_delete"
-        app:layout_constraintTop_toBottomOf="@id/count_adult_tickets">
-    </androidx.appcompat.widget.AppCompatImageButton>
+        android:orientation="vertical"
+        style="@style/style_container"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section"
+        app:layout_constraintStart_toEndOf="@id/container_kid_ticket"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_baby_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icn_booking_add"
+            style="@style/button_add_delete"
+            app:layout_constraintTop_toBottomOf="@id/bottom_barrier_date_section">
+        </androidx.appcompat.widget.AppCompatImageButton>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_baby_tickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/main_text"
+            app:layout_constraintTop_toBottomOf="@id/add_adult_ticket"
+            app:layout_constraintBottom_toTopOf="@id/delete_adult_ticket"
+            tools:text="0">
+        </com.google.android.material.textview.MaterialTextView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_baby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            tools:text="До 2-х лет">
+        </com.google.android.material.textview.MaterialTextView>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/delete_baby_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_add_delete"
+            android:src="@drawable/icn_booking_delete"
+            app:layout_constraintTop_toBottomOf="@id/count_adult_tickets">
+        </androidx.appcompat.widget.AppCompatImageButton>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_flight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="?attr/colorPrimary"
+        android:textColor="@color/white"
         tools:text="Найти рейсы">
     </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>

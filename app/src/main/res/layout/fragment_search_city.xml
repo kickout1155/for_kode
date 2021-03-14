@@ -11,10 +11,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/app_name"
         android:backgroundTint="@android:color/transparent">
     </androidx.appcompat.widget.AppCompatAutoCompleteTextView>
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title_select_city"
+        android:id="@+id/airport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/search_city"
