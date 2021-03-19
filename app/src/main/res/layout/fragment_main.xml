@@ -51,8 +51,12 @@
             android:id="@+id/from_where_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/main_text"
-            tools:text="Калининград">
+            android:hint="Откуда"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            style="@style/main_text">
         </com.google.android.material.textview.MaterialTextView>
 
         <com.google.android.material.textview.MaterialTextView
@@ -79,9 +83,12 @@
             android:id="@+id/where_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/main_text"
-            tools:text="Москва">
+            android:hint="Куда"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            style="@style/main_text">
         </com.google.android.material.textview.MaterialTextView>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/where_airport"
             style="@style/second_text"
@@ -165,13 +172,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/second_text"
-
+                android:gravity="center"
                 tools:text="asdasd123123">
             </com.google.android.material.textview.MaterialTextView>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/back_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 tools:text="zxczxczxc">
             </com.google.android.material.textview.MaterialTextView>
         </androidx.appcompat.widget.LinearLayoutCompat>

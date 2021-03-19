@@ -1,6 +1,7 @@
-package com.example.forkode
+package com.example.forkode.network
 
-import io.reactivex.Observable
+import com.example.forkode.model.City
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 

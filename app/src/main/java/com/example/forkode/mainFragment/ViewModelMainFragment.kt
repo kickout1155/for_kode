@@ -3,32 +3,32 @@ package com.example.forkode.mainFragment
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.forkode.CheckTickets
+import com.example.forkode.model.City
 import com.example.forkode.ResultAddTicket
 import com.example.forkode.SingleLiveEvent
+import com.example.forkode.base.BaseViewModel
+import com.example.forkode.model.Airport
 
-class ViewModelMainFragment() : ViewModel() {
+class ViewModelMainFragment() : BaseViewModel() {
 
     val MIN_COUNT_ADULT = 1
     val MIN_COUNT_KID = 0
     val MIN_COUNT_BABY = 0
     val DEFAULT_COUNT = 1
 
-    private val _message = SingleLiveEvent<String>()
-    val message: LiveData<String> = _message
 
-    private val _fromWhereCity = MutableLiveData<String>()
-    val fromWhereCity: LiveData<String> = _fromWhereCity
+    private val _fromWhereCity = MutableLiveData<City?>()
+    val fromWhereCity: LiveData<City?> = _fromWhereCity
 
-    private val _fromWhereAirport = MutableLiveData<String>()
-    val fromWhereAirport: LiveData<String> = _fromWhereAirport
+    private val _fromWhereAirport = MutableLiveData<Airport?>()
+    val fromWhereAirport: LiveData<Airport?> = _fromWhereAirport
 
-    private val _whereCity = MutableLiveData<String>()
-    val whereCity: LiveData<String> = _whereCity
+    private val _whereCity = MutableLiveData<City?>()
+    val whereCity: LiveData<City?> = _whereCity
 
-    private val _whereAirport = MutableLiveData<String>()
-    val whereAirport: LiveData<String> = _whereAirport
+    private val _whereAirport = MutableLiveData<Airport?>()
+    val whereAirport: LiveData<Airport?> = _whereAirport
 
     private val _countAdultTickets = MutableLiveData<Int>()
     val countAdultTickets: LiveData<Int> = _countAdultTickets
@@ -45,14 +45,20 @@ class ViewModelMainFragment() : ViewModel() {
         checkTickets: CheckTickets
     ) : this() {
         this.checkTickets = checkTickets
+
+        //пока подставим какие нибудь дефолтные города
+        val city1 = City()
+        city1.name = "Москва"
+        val city2 = City()
+        city2.name = "Калининград"
+        _fromWhereCity.value = city1
+        _whereCity.value = city2
+
     }
 
     init {
-        _fromWhereCity.value = "Откуда"
-        _fromWhereAirport.value = "Все аэропорты"
-
-        _whereCity.value = "Куда"
-        _whereAirport.value = "Все аэропорты"
+        _fromWhereAirport.value = Airport.getDefaultAirport()
+        _whereAirport.value = Airport.getDefaultAirport()
 
         _countAdultTickets.value = MIN_COUNT_ADULT
         _countKidTickets.value = MIN_COUNT_KID
@@ -61,14 +67,14 @@ class ViewModelMainFragment() : ViewModel() {
 
     fun reversClick() {
 
-        val tempValueCity = fromWhereCity.value ?: ""
-        val tempValueAirport = fromWhereAirport.value ?: ""
+        val tempValueCity = _fromWhereCity.value
+        val tempValueAirport = _fromWhereAirport.value
 
         _fromWhereCity.value = whereCity.value
         _fromWhereAirport.value = whereAirport.value
 
-        _whereCity.value = tempValueCity
         _whereAirport.value = tempValueAirport
+        _whereCity.value = tempValueCity
 
     }
 
@@ -192,6 +198,13 @@ class ViewModelMainFragment() : ViewModel() {
 
     fun logg(){
         Log.d("ticket", "${countAdultTickets.value} ${countKidTickets.value} ${countBabyTickets.value}")
+    }
+
+    fun findTicket() {
+
+
+
+
     }
 
 }

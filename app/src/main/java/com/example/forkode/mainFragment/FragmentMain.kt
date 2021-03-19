@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.appcompat.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.forkode.EnterFragment
 import com.example.forkode.R
 import com.example.forkode.Ticket
 import com.example.forkode.searchCityFragment.FragmentSearchCity
+import com.example.forkode.weatherFragment.FragmentWeather
 import com.google.android.material.textview.MaterialTextView
 
 class FragmentMain : Fragment() {
@@ -28,7 +29,7 @@ class FragmentMain : Fragment() {
     lateinit var tv_fromWhereAirport: MaterialTextView
 
     lateinit var ll_where: LinearLayoutCompat
-    lateinit var tv_whereCity: MaterialTextView
+    lateinit var tv_whereCity: TextView
     lateinit var tv_whereAirport: MaterialTextView
 
     lateinit var btn_reverse: AppCompatImageButton
@@ -58,6 +59,13 @@ class FragmentMain : Fragment() {
     lateinit var btn_deleteBabyTicket: AppCompatImageButton
 
     lateinit var btn_findFlight: AppCompatButton
+
+
+    companion object {
+        fun newInstance(): FragmentMain {
+            return FragmentMain()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,23 +129,25 @@ class FragmentMain : Fragment() {
         tv_titleAdult.text = "Взрослый"
         tv_titleKid.text = "2-12 лет"
         tv_titleBaby.text = "до 2-х лет"
+
+        btn_findFlight.text = "Найти рейсы"
     }
 
     private fun setObservers() {
-        viewModel.fromWhereCity.observe(viewLifecycleOwner, { nameCity ->
-            tv_fromWhereCity.text = nameCity
+        viewModel.fromWhereCity.observe(viewLifecycleOwner, { city ->
+            tv_fromWhereCity.text = city?.name
         })
 
-        viewModel.fromWhereAirport.observe(viewLifecycleOwner, { nameAirport ->
-            tv_fromWhereAirport.text = nameAirport
+        viewModel.fromWhereAirport.observe(viewLifecycleOwner, { airport ->
+            tv_fromWhereAirport.text = airport?.name
         })
 
-        viewModel.whereCity.observe(viewLifecycleOwner, { nameCity ->
-            tv_whereCity.text = nameCity
+        viewModel.whereCity.observe(viewLifecycleOwner, { city ->
+            tv_whereCity.text = city?.name
         })
 
-        viewModel.whereAirport.observe(viewLifecycleOwner, { nameAirport ->
-            tv_whereAirport.text = nameAirport
+        viewModel.whereAirport.observe(viewLifecycleOwner, { airport ->
+            tv_whereAirport.text = airport?.name
         })
 
         viewModel.countAdultTickets.observe(viewLifecycleOwner, { countTicket ->
@@ -186,11 +196,42 @@ class FragmentMain : Fragment() {
             viewModel.deleteBabyTicket()
         }
 
+        ll_where.setOnClickListener {
+
+        }
+
         ll_fromWhere.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.main_container, FragmentSearchCity())
                 ?.addToBackStack(null)
                 ?.commit()
+        }
+
+        ll_there.setOnClickListener {
+
+        }
+
+        ll_back.setOnClickListener {
+
+        }
+
+
+
+        btn_findFlight.setOnClickListener {
+
+            val activityFragment = activity
+
+            activityFragment ?: return@setOnClickListener
+
+            val fragmentWeather = FragmentWeather.newInstance(
+                viewModel.fromWhereCity.value,
+                viewModel.whereCity.value
+            )
+
+            activityFragment.supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragmentWeather)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
