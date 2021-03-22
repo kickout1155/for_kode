@@ -1,6 +1,7 @@
 package com.example.forkode.base
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.forkode.OnViewHolderClickListener
 import java.util.ArrayList
 
 abstract class BaseAdapter<T, VH : BaseViewHolder<T>> : RecyclerView.Adapter<VH>() {

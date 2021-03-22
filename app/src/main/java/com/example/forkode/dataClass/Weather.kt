@@ -2,7 +2,7 @@ package com.example.forkode.network
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherObject(
+data class Weather(
     @SerializedName("list")
     val listDetail: MutableList<WeatherDetail>
 )
@@ -16,5 +16,11 @@ data class WeatherDetail(
 
 data class Temperature(
     @SerializedName("temp")
-    val temperatureKelvin: Double
+    val temperature: Double,
+
+    @SerializedName("temp_min")
+    val temperatureMin: Double,
+
+    @SerializedName("temp_max")
+    val temperatureMax: Double
 )

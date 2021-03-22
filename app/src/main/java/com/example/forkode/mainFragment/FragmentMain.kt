@@ -1,17 +1,24 @@
 package com.example.forkode.mainFragment
 
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.*
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import com.example.forkode.EnterFragment
+import com.example.forkode.CallbackDatePicker
+import com.example.forkode.DatePickerTicket
 import com.example.forkode.R
 import com.example.forkode.Ticket
+import com.example.forkode.model.City
 import com.example.forkode.searchCityFragment.FragmentSearchCity
 import com.example.forkode.weatherFragment.FragmentWeather
 import com.google.android.material.textview.MaterialTextView
@@ -60,11 +67,15 @@ class FragmentMain : Fragment() {
 
     lateinit var btn_findFlight: AppCompatButton
 
-
     companion object {
         fun newInstance(): FragmentMain {
             return FragmentMain()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -77,6 +88,17 @@ class FragmentMain : Fragment() {
         setFirstValues()
         setObservers()
         setClickListeners()
+
+
+        setFragmentResultListener(tv_whereCity.hint.toString()) { requestKey, bundle ->
+            val city = bundle.getSerializable("city") as City
+            viewModel.setWhereCity(city)
+        }
+        setFragmentResultListener(tv_fromWhereCity.hint.toString()) { requestKey, bundle ->
+            val city = bundle.getSerializable("city") as City
+            viewModel.setFromWhereCity(city)
+        }
+
         return view
     }
 
@@ -98,7 +120,6 @@ class FragmentMain : Fragment() {
         ll_back = view.findViewById(R.id.linearlayout_section_back)
         tv_titleBackDate = view.findViewById(R.id.title_back_date)
         tv_backDate = view.findViewById(R.id.back_date)
-//        btn_clearBackDate = view.findViewById(R.id.clear_date_back)
 
         btn_addAdultTicket = view.findViewById(R.id.add_adult_ticket)
         tv_countAdultTickets = view.findViewById(R.id.count_adult_tickets)
@@ -120,17 +141,18 @@ class FragmentMain : Fragment() {
     }
 
     private fun setFirstValues() {
-        tv_titleThereDate.text = "Туда"
-        tv_thereDate.text = "Тек дата"
+        tv_titleThereDate.text = getString(R.string.there)
 
-        tv_titleBackDate.text = "Обратно"
+        tv_titleBackDate.text = getString(R.string.back)
         tv_backDate.text = "другая дата"
 
-        tv_titleAdult.text = "Взрослый"
-        tv_titleKid.text = "2-12 лет"
-        tv_titleBaby.text = "до 2-х лет"
+        tv_titleAdult.text = getString(R.string.adult)
+        tv_titleKid.text = getString(R.string.before_12_years)
+        tv_titleBaby.text = getString(R.string.before_2_years)
 
-        btn_findFlight.text = "Найти рейсы"
+        btn_findFlight.text = getString(R.string.find_tickets)
+
+        tv_thereDate.text = DatePickerTicket().getActualDayString()
     }
 
     private fun setObservers() {
@@ -155,9 +177,30 @@ class FragmentMain : Fragment() {
         })
         viewModel.countKidTickets.observe(viewLifecycleOwner, { countTicket ->
             tv_countKidTickets.text = countTicket.toString()
+            if (countTicket == 0) {
+                tv_countKidTickets.setTextColor(Color.GRAY)
+                tv_titleKid.setTextColor(Color.GRAY)
+            }
+
+            if (countTicket == 1) {
+                tv_countKidTickets.setTextColor(Color.BLACK)
+                tv_titleKid.setTextColor(Color.BLACK)
+
+            }
         })
         viewModel.countBabyTickets.observe(viewLifecycleOwner, { countTicket ->
             tv_countBabyTickets.text = countTicket.toString()
+            if (countTicket == 0) {
+                tv_countBabyTickets.setTextColor(Color.GRAY)
+                tv_titleBaby.setTextColor(Color.GRAY)
+            }
+
+            if (countTicket == 1) {
+                tv_countBabyTickets.setTextColor(Color.BLACK)
+                tv_titleBaby.setTextColor(Color.BLACK)
+
+            }
+
         })
 
         viewModel.message.observe(viewLifecycleOwner, { message ->
@@ -197,25 +240,59 @@ class FragmentMain : Fragment() {
         }
 
         ll_where.setOnClickListener {
-
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(
+                    R.id.main_container,
+                    FragmentSearchCity.newInstance(
+                        tv_whereCity.hint.toString(),
+                        getString(R.string.select_destination)
+                    )
+                )
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
         ll_fromWhere.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.main_container, FragmentSearchCity())
+                ?.replace(
+                    R.id.main_container,
+                    FragmentSearchCity.newInstance(
+                        tv_fromWhereCity.hint.toString(),
+                        getString(R.string.select_departure_point)
+                    )
+                )
                 ?.addToBackStack(null)
                 ?.commit()
         }
 
         ll_there.setOnClickListener {
 
+            if (context == null) {
+                return@setOnClickListener
+            }
+
+            val datePickerTicket = DatePickerTicket()
+            datePickerTicket.setCallbackDatePickerDate(object : CallbackDatePicker {
+                override fun callbackDateString(dateString: String) {
+                    tv_thereDate.text = dateString
+                }
+            })
+            datePickerTicket.showDatePicker(requireContext())
         }
 
         ll_back.setOnClickListener {
+            if (context == null) {
+                return@setOnClickListener
+            }
 
+            val datePickerTicket = DatePickerTicket()
+            datePickerTicket.setCallbackDatePickerDate(object : CallbackDatePicker {
+                override fun callbackDateString(dateString: String) {
+                    tv_backDate.text = dateString
+                }
+            })
+            datePickerTicket.showDatePicker(requireContext())
         }
-
-
 
         btn_findFlight.setOnClickListener {
 

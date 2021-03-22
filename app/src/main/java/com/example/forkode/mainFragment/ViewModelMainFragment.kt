@@ -46,14 +46,6 @@ class ViewModelMainFragment() : BaseViewModel() {
     ) : this() {
         this.checkTickets = checkTickets
 
-        //пока подставим какие нибудь дефолтные города
-        val city1 = City()
-        city1.name = "Москва"
-        val city2 = City()
-        city2.name = "Калининград"
-        _fromWhereCity.value = city1
-        _whereCity.value = city2
-
     }
 
     init {
@@ -92,7 +84,6 @@ class ViewModelMainFragment() : BaseViewModel() {
             return
         }
         _countAdultTickets.value = tempCountTicket + DEFAULT_COUNT
-        logg()
     }
 
     fun addKidTicket() {
@@ -108,7 +99,6 @@ class ViewModelMainFragment() : BaseViewModel() {
             return
         }
         _countKidTickets.value = tempCountTicket + DEFAULT_COUNT
-        logg()
     }
 
     fun addBabyTicket() {
@@ -124,7 +114,6 @@ class ViewModelMainFragment() : BaseViewModel() {
             return
         }
         _countBabyTickets.value = tempCountTicket + DEFAULT_COUNT
-        logg()
     }
 
 
@@ -153,7 +142,6 @@ class ViewModelMainFragment() : BaseViewModel() {
 
         _countAdultTickets.value = tempCountAdultTicket - 1
         _countBabyTickets.value = tempCountBabyTicket
-        logg()
     }
 
     fun deleteKidTicket() {
@@ -173,7 +161,6 @@ class ViewModelMainFragment() : BaseViewModel() {
             return
         }
         _countKidTickets.value = tempCountTicket - DEFAULT_COUNT
-        logg()
     }
 
     fun deleteBabyTicket() {
@@ -193,18 +180,14 @@ class ViewModelMainFragment() : BaseViewModel() {
             return
         }
         _countBabyTickets.value = tempCountTicket - DEFAULT_COUNT
-        logg()
     }
 
-    fun logg(){
-        Log.d("ticket", "${countAdultTickets.value} ${countKidTickets.value} ${countBabyTickets.value}")
+    fun setFromWhereCity(city: City) {
+        _fromWhereCity.value = city
     }
 
-    fun findTicket() {
-
-
-
-
+    fun setWhereCity(city: City) {
+        _whereCity.value = city
     }
 
 }

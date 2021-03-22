@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">for kode</string>
     <string name="select_dot_departure">Выбрать точку вылета</string>
+    <string name="there">Туда</string>
+    <string name="back">Обратно</string>
+    <string name="adult">Взрослый</string>
+    <string name="before_12_years">2-12 лет</string>
+    <string name="before_2_years">до 2-х лет</string>
+    <string name="find_tickets">Найти рейсы</string>
+    <string name="select_departure_point">Выбрать точку вылета</string>
+    <string name="select_destination">Выбрать точку назначения</string>
+    <string name="all_airport">Все аэропорты</string>
+    <string name="min_temperature">Минимальная температура</string>
+    <string name="temperature">Температура</string>
+    <string name="max_temperature">Макcимальная температура</string>
+    <string name="from_where">Откуда</string>
+    <string name="where">Куда</string>
 </resources>

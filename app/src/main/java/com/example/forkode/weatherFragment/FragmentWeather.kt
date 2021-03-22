@@ -1,10 +1,12 @@
 package com.example.forkode.weatherFragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,21 +14,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.forkode.R
 import com.example.forkode.adapterWeather.AdapterWeatherDetail
 import com.example.forkode.model.City
-import com.example.forkode.network.Repository
+import com.example.forkode.network.RepositoryWeather
 import com.example.forkode.network.RetrofitBuilder
-import com.example.forkode.network.WeatherApiHelper
 import com.google.android.material.textview.MaterialTextView
 
 class FragmentWeather : Fragment() {
 
     lateinit var viewModel: ViewModelWeatherFragment
 
-    lateinit var ll_fromWhereWeatherContainer: LinearLayout
-    lateinit var ll_whereWeatherContainer: LinearLayout
+    lateinit var toolBar: Toolbar
+
+    lateinit var ll_backWeatherContainer: LinearLayout
+    lateinit var ll_thereWeatherContainer: LinearLayout
     lateinit var tv_titleBack: MaterialTextView
     lateinit var tv_titleThere: MaterialTextView
-    lateinit var tv_toolBarCityFromWhere : MaterialTextView
-    lateinit var tv_toolBarCityWhere : MaterialTextView
+    lateinit var tv_toolBarCityFromWhere: MaterialTextView
+    lateinit var tv_toolBarCityWhere: MaterialTextView
 
     lateinit var rv_fromWhereWeather: RecyclerView
     val adapterFromWhereWeather = AdapterWeatherDetail()
@@ -50,7 +53,7 @@ class FragmentWeather : Fragment() {
         super.onCreate(savedInstanceState)
         val cityFromWhere: City = arguments?.getSerializable("cityFromWhere") as City
         val cityWhere: City = arguments?.getSerializable("cityWhere") as City
-        val repository = Repository(WeatherApiHelper(RetrofitBuilder.weatherApi))
+        val repository = RepositoryWeather(RetrofitBuilder.weatherApi)
         viewModel =
             ViewModelProvider(
                 this, ViewModelWeatherFragmentFactory(
@@ -71,8 +74,9 @@ class FragmentWeather : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_weather, container, false)
 
-        ll_fromWhereWeatherContainer = view.findViewById(R.id.container_title_there)
-        ll_whereWeatherContainer = view.findViewById(R.id.container_title_back)
+        toolBar = view.findViewById(R.id.toolbar)
+        ll_backWeatherContainer = view.findViewById(R.id.container_title_there)
+        ll_thereWeatherContainer = view.findViewById(R.id.container_title_back)
         tv_titleThere = view.findViewById(R.id.title_there)
         tv_titleBack = view.findViewById(R.id.title_back)
         rv_fromWhereWeather = view.findViewById(R.id.recycler_from_where_weather)
@@ -89,8 +93,11 @@ class FragmentWeather : Fragment() {
     }
 
     private fun initUi() {
-        val layoutManagerFromWhereWeather = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val layoutManagerWhereWeather = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        val layoutManagerFromWhereWeather =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val layoutManagerWhereWeather =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fromWhereWeather.adapter = adapterFromWhereWeather
         rv_fromWhereWeather.layoutManager = layoutManagerFromWhereWeather
         rv_whereWeather.adapter = adapterWhereWeather
@@ -99,20 +106,26 @@ class FragmentWeather : Fragment() {
         rv_fromWhereWeather.visibility = View.VISIBLE
         rv_whereWeather.visibility = View.GONE
 
-        tv_titleThere.text = "Туда"
-        tv_titleBack.text = "Обратно"
+        ll_thereWeatherContainer
+
+        tv_titleThere.text = getString(R.string.there)
+        tv_titleBack.text = getString(R.string.back)
     }
 
     private fun setClickListeners() {
 
-        ll_fromWhereWeatherContainer.setOnClickListener {
+        ll_backWeatherContainer.setOnClickListener {
             rv_fromWhereWeather.visibility = View.VISIBLE
             rv_whereWeather.visibility = View.GONE
         }
 
-        ll_whereWeatherContainer.setOnClickListener {
+        ll_thereWeatherContainer.setOnClickListener {
             rv_fromWhereWeather.visibility = View.GONE
             rv_whereWeather.visibility = View.VISIBLE
+        }
+
+        toolBar.setNavigationOnClickListener {
+            activity?.onBackPressed()
         }
     }
 
@@ -136,5 +149,8 @@ class FragmentWeather : Fragment() {
         })
     }
 
-
+    fun setBackgroundEnableThere() {
+        tv_titleThere.setBackgroundColor(Color.GRAY)
+        tv_titleThere.setBackgroundColor(Color.GRAY)
+    }
 }

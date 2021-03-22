@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.forkode.base.BaseViewModel
 import com.example.forkode.model.City
-import com.example.forkode.network.Repository
+import com.example.forkode.network.RepositoryWeather
 import com.example.forkode.network.WeatherDetail
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class ViewModelWeatherFragment(
     cityFromWhere: City,
     cityWhere: City,
-    repository: Repository
+    repositoryWeather: RepositoryWeather
 ) : BaseViewModel() {
 
     private val _cityFromWhere = MutableLiveData<City>()
@@ -21,7 +21,7 @@ class ViewModelWeatherFragment(
     private val _cityWhere = MutableLiveData<City>()
     val cityWhere = _cityWhere
 
-    private val repository = repository
+    private val repository = repositoryWeather
 
     private val _listFromWhereWeather = MutableLiveData<MutableList<WeatherDetail>>()
     val listFromWhereWeather: LiveData<MutableList<WeatherDetail>> = _listFromWhereWeather

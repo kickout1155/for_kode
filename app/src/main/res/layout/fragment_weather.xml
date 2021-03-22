@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,6 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -23,18 +25,23 @@
                 android:id="@+id/name_city_from_where"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                style="@style/main_text"
+                android:textColor="@color/purple_700"
                 tools:text="sdfsdf">
             </com.google.android.material.textview.MaterialTextView>
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:rotation="90"
                 android:src="@drawable/ic_baseline_airplanemode">
             </androidx.appcompat.widget.AppCompatImageView>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name_city_where"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="sdfsdfsdf">
+                style="@style/main_text"
+                android:textColor="@color/purple_700"
+                tools:text="sdfsdfsdf">
             </com.google.android.material.textview.MaterialTextView>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -50,8 +57,10 @@
         android:gravity="center"
         app:layout_constraintHorizontal_chainStyle="spread">
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/image_there"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:rotation="90"
             android:src="@drawable/ic_baseline_airplanemode"
             android:background="@color/white">
         </androidx.appcompat.widget.AppCompatImageButton>
@@ -60,6 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            style="@style/main_text"
+            android:textColor="@color/purple_700"
             tools:text="туда">
         </com.google.android.material.textview.MaterialTextView>
     </LinearLayout>
@@ -74,9 +85,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center">
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/image_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_airplanemode"
+            android:rotation="270"
+
             android:background="@color/white">
         </androidx.appcompat.widget.AppCompatImageButton>
         <com.google.android.material.textview.MaterialTextView
@@ -84,6 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            style="@style/main_text"
+            android:textColor="@color/purple_700"
             tools:text="обратно">
         </com.google.android.material.textview.MaterialTextView>
     </LinearLayout>

@@ -10,13 +10,13 @@ class Ticket : CheckTickets {
         countBabyTicket: Int
     ): ResultAddTicket {
 
-        if (countAdultTicket+countBabyTicket+countKidTicket>MAX_COUNT_TICKETS){
+        if (countAdultTicket + countBabyTicket + countKidTicket > MAX_COUNT_TICKETS) {
             val result = ResultAddTicket.ErrorAddTicket()
             result.message = "Пассажиров должно быть не больее $MAX_COUNT_TICKETS человек"
             return result
         }
 
-        if (countAdultTicket < countBabyTicket){
+        if (countAdultTicket < countBabyTicket) {
             val result = ResultAddTicket.ErrorAddTicket()
             result.message = "Младенцев не должно быть больше, чем взрослых"
             return result

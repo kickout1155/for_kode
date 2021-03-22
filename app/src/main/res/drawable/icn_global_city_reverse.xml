@@ -3,8 +3,8 @@
     android:width="30dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00000000" android:fillType="evenOdd"
         android:pathData="M7,2v20M1,16l6,6 6,-6"
-        android:strokeColor="#FFF" android:strokeWidth="2"/>
+        android:strokeColor="#FF3700B3" android:strokeWidth="2"/>
     <path android:fillColor="#00000000" android:fillType="evenOdd"
         android:pathData="M23,22V2M29,8l-6,-6 -6,6"
-        android:strokeColor="#FFF" android:strokeWidth="2"/>
+        android:strokeColor="#FF3700B3" android:strokeWidth="2"/>
 </vector>
