@@ -1,9 +1,12 @@
 package com.example.forkode.mainFragment
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.forkode.CheckTickets
+import com.example.forkode.R
 import com.example.forkode.model.City
 import com.example.forkode.ResultAddTicket
 import com.example.forkode.SingleLiveEvent
@@ -16,36 +19,40 @@ class ViewModelMainFragment() : BaseViewModel() {
     val MIN_COUNT_KID = 0
     val MIN_COUNT_BABY = 0
     val DEFAULT_COUNT = 1
-
+    var context: Context? = null
 
     private val _fromWhereCity = MutableLiveData<City?>()
-    val fromWhereCity: LiveData<City?> = _fromWhereCity
+    val fromWhereCity: LiveData<City?> get() = _fromWhereCity
 
     private val _fromWhereAirport = MutableLiveData<Airport?>()
-    val fromWhereAirport: LiveData<Airport?> = _fromWhereAirport
+    val fromWhereAirport: LiveData<Airport?> get() = _fromWhereAirport
 
     private val _whereCity = MutableLiveData<City?>()
-    val whereCity: LiveData<City?> = _whereCity
+    val whereCity: LiveData<City?> get() = _whereCity
 
     private val _whereAirport = MutableLiveData<Airport?>()
-    val whereAirport: LiveData<Airport?> = _whereAirport
+    val whereAirport: LiveData<Airport?> get() = _whereAirport
 
     private val _countAdultTickets = MutableLiveData<Int>()
-    val countAdultTickets: LiveData<Int> = _countAdultTickets
+    val countAdultTickets: LiveData<Int> get() = _countAdultTickets
 
     private val _countKidTickets = MutableLiveData<Int>()
-    val countKidTickets: LiveData<Int> = _countKidTickets
+    val countKidTickets: LiveData<Int> get() = _countKidTickets
 
     private val _countBabyTickets = MutableLiveData<Int>()
-    val countBabyTickets: LiveData<Int> = _countBabyTickets
+    val countBabyTickets: LiveData<Int> get() = _countBabyTickets
+
+    private val _findTickets = SingleLiveEvent<Boolean>()
+    val findTickets: LiveData<Boolean> get() = _findTickets
 
     lateinit var checkTickets: CheckTickets
 
     constructor(
-        checkTickets: CheckTickets
+        checkTickets: CheckTickets,
+        context: Context?
     ) : this() {
         this.checkTickets = checkTickets
-
+        this.context = context
     }
 
     init {
@@ -188,6 +195,22 @@ class ViewModelMainFragment() : BaseViewModel() {
 
     fun setWhereCity(city: City) {
         _whereCity.value = city
+    }
+
+    fun findTicketClick() {
+
+        if (_fromWhereCity.value == null) {
+            _message.value =
+                context?.getString(R.string.error_choice_from_where_city)
+            return
+        }
+
+        if (_whereCity.value == null) {
+            _message.value =
+                context?.getString(R.string.error_choice_where_city)
+            return
+        }
+        _findTickets.value = true
     }
 
 }

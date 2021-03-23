@@ -1,5 +1,6 @@
 package com.example.forkode.mainFragment
 
+import android.app.Application
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -26,7 +27,7 @@ import com.google.android.material.textview.MaterialTextView
 class FragmentMain : Fragment() {
 
     val viewModel by lazy {
-        ViewModelProvider(this, ViewModelMainFragmentFactory(Ticket())).get(
+        ViewModelProvider(this, ViewModelMainFragmentFactory(Ticket(), context)).get(
             ViewModelMainFragment::class.java
         )
     }
@@ -73,11 +74,6 @@ class FragmentMain : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -88,7 +84,6 @@ class FragmentMain : Fragment() {
         setFirstValues()
         setObservers()
         setClickListeners()
-
 
         setFragmentResultListener(tv_whereCity.hint.toString()) { requestKey, bundle ->
             val city = bundle.getSerializable("city") as City
@@ -144,7 +139,6 @@ class FragmentMain : Fragment() {
         tv_titleThereDate.text = getString(R.string.there)
 
         tv_titleBackDate.text = getString(R.string.back)
-        tv_backDate.text = "другая дата"
 
         tv_titleAdult.text = getString(R.string.adult)
         tv_titleKid.text = getString(R.string.before_12_years)
@@ -203,11 +197,25 @@ class FragmentMain : Fragment() {
 
         })
 
+        viewModel.findTickets.observe(viewLifecycleOwner, {
+            val activityFragment = activity
+
+            activityFragment ?: return@observe
+
+            val fragmentWeather = FragmentWeather.newInstance(
+                viewModel.fromWhereCity.value,
+                viewModel.whereCity.value
+            )
+
+            activityFragment.supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragmentWeather)
+                .addToBackStack(null)
+                .commit()
+        })
+
         viewModel.message.observe(viewLifecycleOwner, { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         })
-
-
     }
 
     private fun setClickListeners() {
@@ -296,21 +304,9 @@ class FragmentMain : Fragment() {
 
         btn_findFlight.setOnClickListener {
 
-            val activityFragment = activity
+            viewModel.findTicketClick()
 
-            activityFragment ?: return@setOnClickListener
 
-            val fragmentWeather = FragmentWeather.newInstance(
-                viewModel.fromWhereCity.value,
-                viewModel.whereCity.value
-            )
-
-            activityFragment.supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, fragmentWeather)
-                .addToBackStack(null)
-                .commit()
         }
     }
-
-
 }

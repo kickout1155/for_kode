@@ -15,4 +15,6 @@
     <string name="max_temperature">Макcимальная температура</string>
     <string name="from_where">Откуда</string>
     <string name="where">Куда</string>
+    <string name="error_choice_from_where_city">Не указан город вылета</string>
+    <string name="error_choice_where_city">Не указан город прилета</string>
 </resources>
