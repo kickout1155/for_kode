@@ -9,9 +9,7 @@ interface CityApi {
 
     @GET("/places2")
     fun getCityByString(
-        @Query("term") city: String,
-        @Query("locale") local: String,
-        @Query("types") array: List<String>
+        @Query("cityName") city: String
     ): Observable<List<City>>
 
 }

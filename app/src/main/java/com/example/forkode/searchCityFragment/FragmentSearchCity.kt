@@ -6,14 +6,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +24,7 @@ class FragmentSearchCity : Fragment() {
     val viewModel by lazy { ViewModelProvider(this).get(ViewModelSearchFragment::class.java) }
 
     lateinit var toolbar: Toolbar
-    lateinit var tv_city: AppCompatEditText
+    lateinit var et_city: AppCompatEditText
     lateinit var tv_selectPoint: AppCompatTextView
     lateinit var rv_recycler: RecyclerView
 
@@ -60,7 +56,7 @@ class FragmentSearchCity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search_city, container, false)
-        tv_city = view.findViewById(R.id.search_city)
+        et_city = view.findViewById(R.id.search_city)
         tv_selectPoint = view.findViewById(R.id.select_point)
         toolbar = view.findViewById(R.id.toolbar)
         rv_recycler = view.findViewById(R.id.recycler_city)
@@ -88,10 +84,25 @@ class FragmentSearchCity : Fragment() {
                 activity?.onBackPressed()
             }
         })
+
+        //вроде есть нормальынй метод который вызывается только после того как ввели текст
+        et_city.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.downloadCity(s.toString())
+            }
+
+        })
+
     }
 
     private fun initUi() {
-        tv_city.hint = hintCity
+        et_city.hint = hintCity
         tv_selectPoint.text = textPoint
         toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
